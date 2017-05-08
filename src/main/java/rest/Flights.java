@@ -58,7 +58,7 @@ public class Flights {
     public Flights() {
         urls = new ArrayList<>();
         urls.add("https://airline.skaarup.io/api/flights/");
-        urls.add("https://airline-plaul.rhcloud.com/api/flightinfo/");
+        //urls.add("https://airline-plaul.rhcloud.com/api/flightinfo/");
     }
 
     //Test path: CPH/2017-05-02T00:00:00.000Z/2
