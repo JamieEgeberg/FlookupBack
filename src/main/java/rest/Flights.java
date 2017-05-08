@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import javax.ws.rs.POST;
 
 /**
  * Created by Niki on 2017-05-02.
@@ -62,21 +63,20 @@ public class Flights {
     }
 
     //Test path: CPH/2017-05-02T00:00:00.000Z/2
-
     @GET
     @Path("/{from}/{date}/{tickets}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getFlightsFromDateTickets(@PathParam("from") String from,
-                                            @PathParam("date") String date,
-                                            @PathParam("tickets") int tickets) {
+            @PathParam("date") String date,
+            @PathParam("tickets") int tickets) {
         List<Airline> airlines;
-        System.out.println(gson.toJson(c.apply("https://airline.skaarup" +
-                                                       ".io/api/flights/")));
+        System.out.println(gson.toJson(c.apply("https://airline.skaarup"
+                + ".io/api/flights/")));
         airlines = urls.parallelStream()
-                       .map(string -> c.apply(string + from +
-                                                      "/" + date +
-                                                      "/" + tickets))
-                       .collect(Collectors.toList());
+                .map(string -> c.apply(string + from
+                        + "/" + date
+                        + "/" + tickets))
+                .collect(Collectors.toList());
 
         return gson.toJson(airlines);
     }
@@ -85,18 +85,28 @@ public class Flights {
     @Path("/{from}/{to}/{date}/{tickets}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getFlightsFromDateTickets(@PathParam("from") String from,
-                                            @PathParam("to") String to,
-                                            @PathParam("date") String date,
-                                            @PathParam("tickets") int tickets) {
+            @PathParam("to") String to,
+            @PathParam("date") String date,
+            @PathParam("tickets") int tickets) {
         List<Airline> airlines;
 
         airlines = urls.parallelStream()
-                       .map(string -> c.apply(string + from +
-                                                      "/" + to +
-                                                      "/" + date +
-                                                      "/" + tickets))
-                       .collect(Collectors.toList());
+                .map(string -> c.apply(string + from
+                        + "/" + to
+                        + "/" + date
+                        + "/" + tickets))
+                .collect(Collectors.toList());
 
         return gson.toJson(airlines);
+    }
+
+    @POST
+    @Path("/reservation/{flightId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postFlightsReservation(@PathParam("flightId") String flightId) {
+        
+       
+
+        return gson.toJson("stuff");    //DO STUFF!!!
     }
 }
