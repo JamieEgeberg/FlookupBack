@@ -100,13 +100,5 @@ public class Flights {
         return gson.toJson(airlines);
     }
 
-    @POST
-    @Path("/reservation/{flightId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String postFlightsReservation(@PathParam("flightId") String flightId) {
-        
-       
-
-        return gson.toJson("stuff");    //DO STUFF!!!
-    }
+    
 }
