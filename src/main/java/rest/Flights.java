@@ -9,9 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +30,9 @@ public class Flights {
 
     private static List<String> allUrls() {
         List<String> list = new ArrayList<>();
-        list.add("https://airline.skaarup.io/api/flights/");
+        list.add("https://airline.skaarup.io/api/");
         //list.add("https://airline-plaul.rhcloud.com/api/flightinfo/");
-        //list.add("https://vetterlain.dk/AirWonDo/api/flights/");
+        list.add("https://vetterlain.dk/AirWonDo/api/");
 
         return list;
     }
@@ -76,7 +74,7 @@ public class Flights {
             @PathParam("tickets") int tickets) {
         List<Airline> airlines;
         airlines = urls.parallelStream()
-                .map(string -> c.apply(string + from
+                .map(string -> c.apply(string + "flights/" + from
                         + "/" + date
                         + "/" + tickets))
                 .collect(Collectors.toList());
@@ -92,7 +90,7 @@ public class Flights {
             @PathParam("tickets") int tickets) {
         List<Airline> airlines;
         airlines = urls.parallelStream()
-                .map(string -> c.apply(string + from
+                .map(string -> c.apply(string + "flights/" + from
                         + "/" + to
                         + "/" + date
                         + "/" + tickets))
