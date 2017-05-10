@@ -5,8 +5,13 @@
  */
 package entity;
 
+import com.google.gson.annotations.Expose;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -15,23 +20,51 @@ import javax.persistence.OneToMany;
  * @author Jamie
  */
 @Entity(name = "Reservation")
-public class Reservation {
+public class Reservation implements Serializable {
+
+    public Reservation() {
+    }
+
+    public Reservation(String flightID, int numberOfSeats, String reserveeName, String reversePhone, String reserveeEmail, List<Passenger> passengers) {
+        this.flightID = flightID;
+        this.numberOfSeats = numberOfSeats;
+        this.reserveeName = reserveeName;
+        this.reversePhone = reversePhone;
+        this.reserveeEmail = reserveeEmail;
+        this.passengers = passengers;
+    }
 
     @Id
-    String flightID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     String airline;
+    @Expose
+    String flightID;
 
+    @Expose
     int numberOfSeats;
 
+    @Expose
     String reserveeName;
 
+    @Expose
     String reversePhone;
 
+    @Expose
     String reserveeEmail;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Expose
     List<Passenger> passengers;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAirline() {
+        return airline;
+    }
 
     public String getFlightID() {
         return flightID;
@@ -39,14 +72,6 @@ public class Reservation {
 
     public void setFlightID(String flightID) {
         this.flightID = flightID;
-    }
-
-    public String getAirline() {
-        return airline;
-    }
-
-    public void setAirline(String airline) {
-        this.airline = airline;
     }
 
     public int getNumberOfSeats() {
