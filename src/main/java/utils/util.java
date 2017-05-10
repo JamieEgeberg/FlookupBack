@@ -3,8 +3,6 @@ package utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 /**
@@ -16,9 +14,7 @@ public class util {
     public static String getToday() {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(new Date());
         df.setTimeZone(tz);
-        return df.format(calendar.getTime());
+        return df.format(Calendar.getInstance().getTime());
     }
 }
