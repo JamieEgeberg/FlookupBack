@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import javax.ws.rs.POST;
 
 /**
  * Created by Niki on 2017-05-02.
@@ -29,9 +28,18 @@ public class Flights {
 
     private static Gson gson = new Gson();
 
-    private List<String> urls;
+    public static List<String> urls = allUrls();
 
-    private final Function<String, Airline> c = (String airline) -> {
+    private static List<String> allUrls() {
+        List<String> list = new ArrayList<>();
+        list.add("https://airline.skaarup.io/api/flights/");
+        //list.add("https://airline-plaul.rhcloud.com/api/flightinfo/");
+        //list.add("https://vetterlain.dk/AirWonDo/api/flights/");
+
+        return list;
+    }
+
+    public static final Function<String, Airline> c = (String airline) -> {
         HttpsURLConnection conn = null;
         try {
             URL url = new URL(airline);
@@ -57,9 +65,6 @@ public class Flights {
     };
 
     public Flights() {
-        urls = new ArrayList<>();
-        urls.add("https://airline.skaarup.io/api/flights/");
-        //urls.add("https://airline-plaul.rhcloud.com/api/flightinfo/");
     }
 
     //Test path: CPH/2017-05-02T00:00:00.000Z/2
@@ -70,14 +75,11 @@ public class Flights {
             @PathParam("date") String date,
             @PathParam("tickets") int tickets) {
         List<Airline> airlines;
-        System.out.println(gson.toJson(c.apply("https://airline.skaarup"
-                + ".io/api/flights/")));
         airlines = urls.parallelStream()
                 .map(string -> c.apply(string + from
                         + "/" + date
                         + "/" + tickets))
                 .collect(Collectors.toList());
-
         return gson.toJson(airlines);
     }
 
@@ -89,14 +91,12 @@ public class Flights {
             @PathParam("date") String date,
             @PathParam("tickets") int tickets) {
         List<Airline> airlines;
-
         airlines = urls.parallelStream()
                 .map(string -> c.apply(string + from
                         + "/" + to
                         + "/" + date
                         + "/" + tickets))
                 .collect(Collectors.toList());
-
         return gson.toJson(airlines);
     }
 
