@@ -56,7 +56,7 @@ public class ReservationResource {
     public final Function<Reservation, ReservationResponse> e = (Reservation res) -> {
         HttpsURLConnection conn = null;
         try {
-            URL url = new URL(airlineUrls.get(res.getAirline()));
+            URL url = new URL(airlineUrls.get(res.getAirline()) + "reservation/" + res.getFlightID());
             conn = (HttpsURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             OutputStream os = conn.getOutputStream();
@@ -112,23 +112,11 @@ public class ReservationResource {
         return alUrls;
     }
 
-    /**
-     * Retrieves representation of an instance of rest.ReservationResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
     @POST
     @Path("/{flightId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String postFlightsReservation(@PathParam("flightId") String flightId) {
-
-        return gson.toJson("stuff");    //DO STUFF!!!
+    public String postFlightsReservation(@PathParam("flightId") String flightId, String json) {
+        Reservation res = gson.fromJson(json, Reservation.class);
+        return gson.toJson(e.apply(res));
     }
 }
