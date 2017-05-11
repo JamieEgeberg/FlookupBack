@@ -100,7 +100,7 @@ public class ReservationResource {
     private Pair<String, String> makeUrl(String url) {
         // the value of the pair is default things
         // so we can get the airline name
-        return new Pair<>(url, url + "CPH/" + getToday() + "/" + 1);
+        return new Pair<>(url, url + "flights/" + "CPH/" + getToday() + "/" + 1);
     }
 
     private HashMap<String, String> makeUrlMap(List<Pair<String, String>> urls) {
