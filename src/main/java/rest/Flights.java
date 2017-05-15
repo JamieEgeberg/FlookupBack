@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entity.Airline;
 import utils.util;
 
@@ -27,7 +28,8 @@ import java.util.stream.Collectors;
 @Path("flights")
 public class Flights {
 
-    private static Gson gson = new Gson();
+    private static Gson gson;
+    private static GsonBuilder builder;
 
     private static List<String> urls = new ArrayList<>(util.urls().values());
 
@@ -57,6 +59,10 @@ public class Flights {
     };
 
     public Flights() {
+        builder = new GsonBuilder();
+        //builder.excludeFieldsWithoutExposeAnnotation();
+        builder.setPrettyPrinting();
+        gson = builder.create();
     }
 
     //Test path: CPH/2017-05-02T00:00:00.000Z/2
