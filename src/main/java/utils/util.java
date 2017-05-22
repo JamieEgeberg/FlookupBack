@@ -20,9 +20,11 @@ public class util {
     public static HashMap<String,String> urls() {
         HashMap<String,String> map = new HashMap<>();
         map.put("JENS air", "https://airline.skaarup.io/api/");
-        //map.put("AngularJS Airline,
-        //        "https://airline-plaul.rhcloud.com/api/flightinfo/");
         //map.put("AirWonDo", "https://vetterlain.dk/AirWonDo/api/");
+        //map.put("Con Air", "https://46.101.255.231.xip.io/airline/api/");
+        //map.put("Sunde Fly", "https://viter.dk/SundeFlyBack/api/");
+        //map.put("AngularJS Airline,
+        //        "https://airline-plaul.rhcloud.com/api/"); // flightinfo
         return map;
     }
 }
